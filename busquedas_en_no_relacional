@@ -5,4 +5,10 @@ db.movies.find({runtime: 199})
 --4
 db.movies.find({language: english})
 --5
-db.movies.find({region: usa)}
+db.movies.find({countries: usa)}
+--6
+db.movies.find({runtime: {$gt: 120} })
+--7
+db.movies.find({year: {$gte: 2001} })
+--8
+db.movies.find({
