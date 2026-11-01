@@ -1,2 +1,8 @@
 --1
-db.movies.find({year:1914})
+db.movies.find({year: 1914})
+--2
+db.movies.find({runtime: 199})
+--4
+db.movies.find({language: english})
+--5
+db.movies.find({region: usa)}
