@@ -1,0 +1,56 @@
+{
+  nombre : "",
+  autor : "",
+}
+
+insertMany([
+  {
+    nombre : "Moby Dick",
+    autor : "Herman Melville"
+  },
+  {
+    nombre : "Crime and Justice",
+    autor : "Fyodor Dostoevsky"
+  },
+  {
+    nombre : "Dream of the Red Chamber",
+    autor : "Cao Xueqin"
+  },
+  {
+    nombre : "Metamorphosis",
+    autor : "Franz Kafka"
+  },
+  {
+    nombre : "Hell Screen",
+    autor : "	Ryūnosuke Akutagawa"
+  },
+  {
+    nombre : "Wuthering Heights",
+    autor : "Emily Brontë"
+  },
+  {
+    nombre : "Faust",
+    autor : "Johann Wolfgang von Goethe"
+  },
+  {
+    nombre : "Don Quijote de la Mancha",
+    autor : "Miguel de Cervantes Saavedra"
+  },
+  {
+    nombre : "The Stranger",
+    autor : "Albert Camus"
+  },
+  {
+    nombre : "Demian",
+    autor : "	Hermann Hesse"
+  }
+])
+
+-- CONSULTAS --
+- db.libros.find()
+- db.libros.find( { autor: "Hermann Hesse" } )
+- db.libros.deleteOne( { nombre: "Wuthering Heights" } )
+- db.libros.update(
+  { nombre: "Demian" },
+  { $set { nombre: "Sinclair" } }
+)
