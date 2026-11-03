@@ -142,10 +142,10 @@ db.movies.find({
 })
 
 --32
-db.movies.find({
-  genres: { $in: ["Action", "Comedy"] },
-  tile: 1, genre: 1
-})
+db.movies.find(
+  { genres: { $in: ["Action", "Comedy"] } },
+  { tile: 1, genre: 1 }
+)
 
 --33
 db.movies.find(
