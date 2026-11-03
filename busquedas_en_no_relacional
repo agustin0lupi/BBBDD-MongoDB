@@ -5,10 +5,10 @@ db.movies.find({year: 1914})
 db.movies.find({runtime: 199})
 
 --4
-db.movies.find({language: "english"})
+db.movies.find({language: "English"})
 
 --5
-db.movies.find({countries: "usa"})
+db.movies.find({countries: "USA"})
 
 --6
 db.movies.find({runtime: { $gt: 120 } })
@@ -26,7 +26,7 @@ db.movies.find(
 )
 
 --10
-db.movies.find( runtime: {$lt: 90 } )
+db.movies.find( { runtime: {$lt: 90 } )
 
 --11
   db.movies.find( {
@@ -39,14 +39,14 @@ db.movies.find({
 })
 --13
 db.movies.find({
-  { genres: comedy },
+  { genres: "Comedy" },
   { runtime: { $lt: 120 } }
 })
 
 --14
 db.movies.find(
   genres: {
-      $in: [ "action", "drama" ]
+      $in: [ "Action", "Drama" ]
     }
 )
 
@@ -62,23 +62,21 @@ db.movies.find({
 --16
 db.movies.find({
   $or:[
-    { countries: usa },
-    { countries: uk }
+    { countries: "USA" },
+    { countries: "UK" }
   ]
 })
 
 --17
-db.movies.find( { language: { $ne: "english" } } )
+db.movies.find( { language: { $ne: "English" } } )
 
 --18
-db.movies.find( { countries: { $ne: "usa" } } )
+db.movies.find( { countries: { $ne: "USA" } } )
 
 --19
 db.movies.find({
-  $or[
-    { director: { $ne: "Louis J. Gasnier" } },
-    { director: { $ne: "Donald MacKenzie" } }
-  ]
+  director: { $ne: "Louis J. Gasnier" },
+  director: { $ne: "Donald MacKenzie" }
 })
 
 --20
@@ -94,31 +92,30 @@ db.movies.find({
 
 --23
 db.movies.find({
-  title : { $regex: "^the" }
+  title : { $regex: "^The" }
 })
-)
 
 --24
 db.movies.find({
-  plor: { $regex: "money" }
+  plot: { $regex: "money" }
 })
 
 --25
 db.movies.find(
-  { title: { $regex: "man^" } },
+  { title: { $regex: "man$" } },
   { title: 1, genre: 1, year: 1, released: 1 }
 )
 
 --26
 db.movies.find({
-  director: { $regex: "^Louos" }
+  director: { $regex: "^Louis" }
 })
 
 --27
-db.movies.find({
-  { director: "javier el alfarero" },
+db.movies.find(
+  { director: "Javier El Alfarero" },
   { title: 1, released: 1 }
-})
+)
 
 --28
 db.movies.find({
@@ -128,18 +125,85 @@ db.movies.find({
 
 --29
 db.movies.find({
-  { year: { $gt: 1950 } },
-  { genre: "action" }
+  year: { $gt: 1950 },
+  genre: "action"
 })
 
 --30
 db.movies.find({
-  { idmb.score: { $gt: 7 } },
-  { runtime: { $lt: 120 } }
+  idmb.score: { $gt: 7 },
+  runtime: { $lt: 120 }
 })
 
 -31
 db.movies.find({
-  { countries: "usa" },
-  { language: "english" }
+  countries: "USA",
+  languages: "English"
 })
+
+--32
+db.movies.find({
+  genres: { $in: ["Action", "Comedy"] },
+  tile: 1, genre: 1
+})
+
+--33
+db.movies.find(
+  { $or: [
+    { runtime: { $gt: 180 } },
+    { idmb.score: { $gt: 8 } }
+  ] },
+  { title: 1, score: 1 }
+)
+
+--34
+db.movies.find().sort( { year: -1 } )
+
+--35
+db.movies.find().sort( { year: 1 } )
+
+--36
+db.movies.find().sort( { runtime: -1 } )
+
+--37
+db.movies.find().sort( { idmb.score: 1 } )
+
+--38
+db.movies.find().sort( { title: 1 } )
+
+--39
+db.movies.find().sort( { $or: [ idmb.score: -1, tomatoes.score: -1 ] } ).limit(5)
+
+--40
+db.movies.find().sort( { year: -1 } ).limit(10)
+
+--41
+db.movies.find().sort( { runtime: -1 } ).limit(5)
+
+--42
+db.movies.find().sort( { year: 1 } ).limit(3)
+
+--43
+db.movies.find( { genres: "action" } ).sort( { year: -1 } ).limit(10)
+
+--44
+db.movies.find(
+  { title: { $regex: "^the", $options: "i" }, year: { $gt: 2000 } }
+)
+
+--45
+db.movies.find({
+  runtime: { $lt: 120 }
+}).sort( { idmb.score: -1 ).limit(5)
+
+--46
+db.movies.find(
+  { $or: [ directors: "Donald MacKenzie", directors: "Louis J. Gasnier" ] },
+  { title: 1, year: 1, directors: 1 }
+).sort( { year: -1 } )
+
+--47
+db.movies.find(
+  { year: { $gt: 1990 }, genres: { $in: [ "Action", "Drama" ] }, runtime: { $gt: 100 }, idmb.score: { $gt: 7 } },
+  {title: 1, year: 1, runtime: 1, idmb: 1}
+).sort( { idmb.score: -1 } ).limit(10)
